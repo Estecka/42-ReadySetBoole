@@ -6,8 +6,13 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:59:05 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/15 18:00:41 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/15 18:58:52 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef ADDER_HPP
+#define ADDER_HPP
+
 unsigned int	adder(unsigned int a, unsigned int b);
+
+#endif
