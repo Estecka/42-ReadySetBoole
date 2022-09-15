@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:01:35 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/15 19:03:30 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/15 19:28:30 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ extern int	main(int argc, char** argv){
 		else
 			std::cout << LOG_BOLD_RED << r << std::endl
 			          << "\tExpected: " << ok << LOG_CLEAR << std::endl;
+		
+		a = ok;
 	}
 }
