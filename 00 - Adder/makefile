@@ -1,14 +1,25 @@
+DEP = main.o  \
+	adder.o \
+	../logutil/logutil.a \
 
-all: adder.out
+NAME = adder.out
+CXX = clang++
+CPPFLAGS = -Wall -Wextra
 
-adder.out: adder.cpp main.cpp ../logutil.a
-	clang++ main.cpp adder.cpp ../logutil/logutil.a -o adder.out -Wall -Wextra
 
-../logutil.a: lib
-	make logutil.a -C ../logutil
+all: ${NAME}
+
+${NAME}: ${DEP}
+	${CXX} ${DEP} -o ${NAME} ${CPPFLAGS}
+
+
+%.a: lib
+	make $(@C) -C $(@D)
+
 
 clean:
-	rm -f adder
+	rm -f *.o
+	rm -f ${NAME}
 
 re: clean all
 
