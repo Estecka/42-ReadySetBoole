@@ -14,7 +14,7 @@ ${NAME}: ${DEP}
 
 
 %.a: lib
-	make $(@C) -C $(@D)
+	make $(@F) -C $(@D)
 
 
 clean:
