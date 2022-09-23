@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 18:01:35 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/17 19:27:37 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/23 19:05:35 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 /*
  * Curtesy of https://en.wikipedia.org/wiki/Gray_code#Converting_to_and_from_Gray_code
  */
-static unsigned int	BinToGray(unsigned int n){
-	return n ^( n >> 1);
-}
 static unsigned int	GrayToBin(unsigned int n){
 	unsigned int mask = n;
 
@@ -29,7 +26,7 @@ static unsigned int	GrayToBin(unsigned int n){
 		mask >>= 1;
 		n ^= mask;
 	}
-	return mask;
+	return n;
 }
 
 static std::string	ToBin(unsigned int n){
@@ -48,12 +45,13 @@ extern int	main(int argc, char** argv){
 	for (int i=1; i<argc; i++) {
 		unsigned int n = std::atoi(argv[i]);
 		unsigned int r = gray_code(n);
-		unsigned int ok = BinToGray(n);
+		unsigned int ok = GrayToBin(r);
 
-		const char* color = (r == ok) ? LOG_GREEN : LOG_BOLD_RED;
-		std::cout << " ┌ "  << n        << " -> " << color << r         << LOG_CLEAR << std::endl
-		          << " └ " << ToBin(n) << " -> " << color << ToBin(r) << LOG_CLEAR << std::endl;
-		if (r != ok)
-			std::cout << LOG_RED"\tExpected : " << ok << " ─ " << ToBin(ok) << LOG_CLEAR << std::endl;
+		const char* COLOR = (n == ok) ? LOG_GREEN : LOG_BOLD_RED;
+		std::cout << "  ┌ " << n << " -> " << COLOR << r << LOG_CLEAR << std::endl
+		          << " ┌─ " << ToBin(n) << std::endl
+		          << " └> " << COLOR << ToBin(r) << LOG_CLEAR << std::endl;
+		if (n != ok)
+			std::cout << LOG_RED"\tThis is gray code for : " << ok << " ─ " << ToBin(ok) << LOG_CLEAR << std::endl;
 	}
 }
