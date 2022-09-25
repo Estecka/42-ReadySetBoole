@@ -7,4 +7,5 @@ make all \
 && ./adder.out 1 5 21 125 341 \
 && ./adder.out 1 9 73 585 4681 \
 && ./adder.out 0 3 27 219 3510 \
+&& ./adder.out $RANDOM $RANDOM $RANDOM $RANDOM $RANDOM \
 ;
