@@ -19,7 +19,7 @@ ${NAME}: ${DEP}
 
 clean:
 	rm -f *.o
-	rm -f ${NAME}
+	rm -f *.out
 
 re: clean all
 
