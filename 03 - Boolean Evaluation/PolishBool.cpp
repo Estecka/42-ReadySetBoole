@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PolishNode.hpp                                     :+:      :+:    :+:   */
+/*   PolishBool.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 17:17:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 18:35:18 by abaur            ###   ########.fr       */
+/*   Created: 2022/09/25 18:28:53 by abaur             #+#    #+#             */
+/*   Updated: 2022/09/25 19:04:35 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POLISH_NODE_HPP
-#define POLISH_NODE_HPP
+#include "PolishBool.hpp"
 
-#include "IPolishItem.hpp"
+PolishBool::PolishBool(bool value) 
+: _value(value)
+{}
 
-class PolishNode : IPolishItem
-{
-	public:
-		PolishNode(char op, IPolishItem* left, IPolishItem* right);
-		~PolishNode();
+PolishBool::~PolishBool()
+{}
 
-		bool	Evaluate();
-		std::string	Draw(int level=0);
-		
-	private:
-		char _op;
-		IPolishItem	*_left, *_right;
-};
+bool	PolishBool::Evaluate(){
+	return this->_value;
+}
 
-#endif
+std::string	PolishBool::Draw(int level){
+	(void)level;
+	return _value ? "1\n" : "0\n";
+}

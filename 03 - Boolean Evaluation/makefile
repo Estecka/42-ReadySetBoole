@@ -1,6 +1,3 @@
-DEP = main.o  \
-	../logutil/logutil.a \
-
 HDRS = \
 	eval_expr.hpp \
 	InvalidExprException.hpp \
@@ -9,16 +6,28 @@ HDRS = \
 	PolishBool.hpp \
 	PolishNode.hpp \
 
-NAME = eval_formula.out
+SRCS = \
+	InvalidExprException.o \
+	InvalidTreeException.o \
+	PolishBool.o \
+	PolishNode.o \
+
+LIBS = \
+	../logutil/logutil.a \
+
+NAME = eval_formula.a
+TEST = eval_formula.out
 CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
 
 all: headers_test ${NAME}
 
-${NAME}: ${DEP}
-	${CXX} ${DEP} -o ${NAME} ${CPPFLAGS}
+${NAME}: ${SRCS}
+	ar rcs ${NAME} ${SRCS}
 
+${TEST}: ${NAME} ${LIB}
+	${CXX} ${NAME} ${SRCS} -o ${TEST} ${CPPFLAGS}
 
 %.a: lib
 	make $(@F) -C $(@D)
@@ -30,6 +39,7 @@ headers_test: ${HDRS:.hpp=.hpp.o}
 
 clean:
 	rm -f *.o
+	rm -f *.a
 	rm -f *.out
 
 re: clean all

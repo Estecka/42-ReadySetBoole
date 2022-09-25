@@ -1,32 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PolishNode.hpp                                     :+:      :+:    :+:   */
+/*   InvalidExprException.cpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 17:17:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 18:35:18 by abaur            ###   ########.fr       */
+/*   Created: 2022/09/25 19:05:29 by abaur             #+#    #+#             */
+/*   Updated: 2022/09/25 19:06:59 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef POLISH_NODE_HPP
-#define POLISH_NODE_HPP
+#include "InvalidExprException.hpp"
 
-#include "IPolishItem.hpp"
-
-class PolishNode : IPolishItem
-{
-	public:
-		PolishNode(char op, IPolishItem* left, IPolishItem* right);
-		~PolishNode();
-
-		bool	Evaluate();
-		std::string	Draw(int level=0);
-		
-	private:
-		char _op;
-		IPolishItem	*_left, *_right;
-};
-
-#endif
+InvalidExprException::InvalidExprException(const std::string& what_arg)
+: std::invalid_argument(what_arg)
+{}
