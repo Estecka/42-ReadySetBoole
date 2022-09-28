@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:06:35 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 18:26:12 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/28 16:11:16 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <stdexcept>
 
-class InvalidExprException : std::invalid_argument
+class InvalidExprException : public std::invalid_argument
 {
 public:
 	InvalidExprException(const std::string& what_arg);

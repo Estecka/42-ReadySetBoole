@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:23:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 18:04:17 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/28 15:39:17 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 class IPolishItem
 {
 public:
-	virtual ~IPolishItem();
+	virtual ~IPolishItem(){};
 
 	/**
 	 * Collapse the item into a single boolean value.

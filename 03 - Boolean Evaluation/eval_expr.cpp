@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/28 15:16:48 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/28 16:16:23 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string
 static PolishNode*	BuildNode(char op, std::string& expr){
 	PolishNode& node = *new PolishNode(op, NULL, NULL);
 
-	BuildTree(expr, node._left, expr);
 	BuildTree(expr, node._right, expr);
+	BuildTree(expr, node._left,  expr);
 
 	return &node;
 }
@@ -28,7 +28,7 @@ static PolishNode*	BuildNode(char op, std::string& expr){
 static void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string& outRemainder){
 	const std::string& expr = str;
 	if (!expr.size())
-		throw InvalidExprException("Expression has loose ends.");
+		throw InvalidExprException("Expression has loose ends");
 
 	char c = expr.at(expr.size()-1);
 	outRemainder = expr.substr(0, expr.size()-1);
@@ -47,6 +47,7 @@ bool	eval_formula(const std::string& str) {
 	BuildTree(str, tree, remainder);
 	if (remainder.size())
 		throw InvalidExprException("Expression has trailing characters");
+	std::cerr << tree->Draw();
 
 	return tree->Evaluate();
 }

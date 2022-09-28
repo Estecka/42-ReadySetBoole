@@ -22,13 +22,13 @@ CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
 
-all: headers_test ${NAME}
+all: headers_test ${NAME} ${TEST}
 
 ${NAME}: ${SRCS}
 	ar rcs ${NAME} ${SRCS}
 
-${TEST}: ${NAME} ${LIB}
-	${CXX} ${NAME} ${SRCS} -o ${TEST} ${CPPFLAGS}
+${TEST}: ${NAME} ${LIB} main.o
+	${CXX} main.o ${NAME} -o ${TEST} ${CPPFLAGS}
 
 %.a: lib
 	make $(@F) -C $(@D)
