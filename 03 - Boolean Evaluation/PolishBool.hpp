@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:38:20 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 18:04:23 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/25 19:55:47 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include "IPolishItem.hpp"
 
-class PolishBool : IPolishItem
+class PolishBool : public IPolishItem
 {
 public:
 	PolishBool(bool value);

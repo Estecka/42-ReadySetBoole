@@ -7,6 +7,7 @@ HDRS = \
 	PolishNode.hpp \
 
 SRCS = \
+	eval_expr.o \
 	InvalidExprException.o \
 	InvalidTreeException.o \
 	PolishBool.o \
