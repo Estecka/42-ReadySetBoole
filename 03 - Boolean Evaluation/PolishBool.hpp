@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:38:20 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/25 19:55:47 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/30 17:42:42 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ public:
 	~PolishBool();
 
 	bool	Evaluate();
-	std::string	Draw(int level=0);
+	std::string	Draw(std::string = "");
 
 private:
 	bool _value;

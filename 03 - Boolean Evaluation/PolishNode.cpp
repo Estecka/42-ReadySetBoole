@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:33:06 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/28 16:16:16 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/30 17:42:48 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,14 @@ bool	PolishNode::Evaluate(){
 	}
 }
 
-std::string	PolishNode::Draw(int level){
+std::string	PolishNode::Draw(std::string prefix){
 	std::string	graph;
-	std::string	prefix;
-
-	for (int i=0; i<level; i++)
-		prefix += " │";
 
 	graph += (_op=='|') ? ':' : _op;
 	graph += + "┬";
-	graph += _right ? _right->Draw(level+1) : "??\n";
+	graph += _right ? _right->Draw(prefix + " │") : "??\n";
 	graph += prefix + " └";
-	graph += _left  ? _left ->Draw(level+1) : "??\n";
+	graph += _left  ? _left ->Draw(prefix + "  ") : "??\n";
 
 	return graph;
 }

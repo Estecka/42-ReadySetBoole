@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:23:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/28 15:39:17 by abaur            ###   ########.fr       */
+/*   Updated: 2022/09/30 17:42:32 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ public:
 	/**
 	 * Draw a visual representation of the Item.
 	 * 
-	 * If multiline, each line will be padded according to `level`.
+	 * If multiline, each line will be prefixed with the provided value.
 	 * The first line however, will never be padded, so that it can be easily
 	 * appended to an existing tree.
 	 */
-	virtual std::string	Draw(int level = 0) = 0;
+	virtual std::string	Draw(std::string prefix = "") = 0;
 };
 
 #endif
