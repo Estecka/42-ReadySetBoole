@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:33:06 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/30 17:42:48 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/07 18:59:07 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ bool	PolishNode::Evaluate(){
 		case '&':	return l & r;
 		case '|':	return l | r;
 		case '^':	return l ^ r;
+		case '=':	return l == r;
+		case '>':	return l <= r;
 	}
 }
 
