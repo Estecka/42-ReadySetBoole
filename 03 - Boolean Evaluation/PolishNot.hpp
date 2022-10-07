@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_expr.hpp                                      :+:      :+:    :+:   */
+/*   PolishNot.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 18:18:46 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/07 18:18:56 by abaur            ###   ########.fr       */
+/*   Created: 2022/10/07 18:07:38 by abaur             #+#    #+#             */
+/*   Updated: 2022/10/07 18:17:47 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVAL_EXPR_HPP
-#define EVAL_EXPR_HPP
+#ifndef POLISH_NOT
+#define POLISH_NOT
 
-#include "InvalidExprException.hpp"
-#include "InvalidTreeException.hpp"
 #include "IPolishItem.hpp"
-#include "PolishBool.hpp"
-#include "PolishNode.hpp"
-#include "PolishNot.hpp"
 
-bool	eval_formula(const std::string& str);
+class PolishNot : public IPolishItem
+{
+public:
+	IPolishItem*	_child;
+
+	PolishNot(IPolishItem*	child);
+	~PolishNot();
+
+	bool	Evaluate();
+	std::string	Draw(std::string = "");
+};
+
+
 
 #endif

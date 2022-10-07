@@ -12,6 +12,7 @@ SRCS = \
 	InvalidTreeException.o \
 	PolishBool.o \
 	PolishNode.o \
+	PolishNot.o \
 
 LIBS = \
 	../logutil/logutil.a \

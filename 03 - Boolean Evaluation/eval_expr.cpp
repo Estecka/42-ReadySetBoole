@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/28 16:16:23 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/07 18:21:04 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ static PolishNode*	BuildNode(char op, std::string& expr){
 
 	return &node;
 }
+static PolishNot*	BuildNot(std::string& expr){
+	PolishNot& node = *new PolishNot(NULL);
+
+	BuildTree(expr, node._child, expr);
+
+	return &node;
+}
 
 static void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string& outRemainder){
 	const std::string& expr = str;
@@ -36,7 +43,8 @@ static void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string
 	switch (c) {
 		case '0':	outTree = new PolishBool(false);	break;
 		case '1':	outTree = new PolishBool(true); 	break;
-		default: 	outTree = BuildNode(c, outRemainder);	break;
+		case '!':	outTree = BuildNot (outRemainder);    	break;
+		default: 	outTree = BuildNode(c,  outRemainder);	break;
 	}
 }
 
