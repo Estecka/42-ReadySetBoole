@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 15:24:05 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 15:52:09 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ void	print_truth_table(const std::string& str) {
 	BuildTree(str, tree, remainder);
 	if (remainder.size())
 		throw InvalidExprException("Expression has trailing characters");
-	std::cerr << tree->Draw();
+	std::cerr << tree->Draw() << std::endl;
 }

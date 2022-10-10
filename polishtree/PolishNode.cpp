@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:33:06 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/07 18:59:07 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 16:01:18 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ PolishNode::~PolishNode(){
 		delete this->_right;
 }
 
-bool	PolishNode::Evaluate(){
+bool	PolishNode::Evaluate(const varmap& values){
 	if (!this->_left || !this->_right)
 		throw InvalidTreeException("A node has missing components");
-	bool l = this->_left ->Evaluate();
-	bool r = this->_right->Evaluate();
+	bool l = this->_left ->Evaluate(values);
+	bool r = this->_right->Evaluate(values);
 
 	switch (this->_op)
 	{

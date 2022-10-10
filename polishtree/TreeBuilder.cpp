@@ -6,11 +6,13 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:03:31 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 15:07:45 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 15:35:26 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PolishTree.hpp"
+
+#include <cstring>
 
 static PolishNode*	BuildNode(char op, std::string& expr){
 	PolishNode& node = *new PolishNode(op, NULL, NULL);
@@ -36,10 +38,14 @@ extern void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string
 	char c = expr.at(expr.size()-1);
 	outRemainder = expr.substr(0, expr.size()-1);
 
-	switch (c) {
+	if ('A' <= c && c <= 'Z')
+		outTree = new PolishVar(c);
+	else if (std::strchr("&|^>=", c))
+		outTree = BuildNode(c,  outRemainder);
+	else switch (c) {
 		case '0':	outTree = new PolishBool(false);	break;
 		case '1':	outTree = new PolishBool(true); 	break;
 		case '!':	outTree = BuildNot (outRemainder);    	break;
-		default: 	outTree = BuildNode(c,  outRemainder);	break;
+		default:	throw new InvalidExprException("Unsupported symbol");
 	}
 }

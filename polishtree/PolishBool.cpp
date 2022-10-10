@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:28:53 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/30 17:42:37 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 16:01:30 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ PolishBool::PolishBool(bool value)
 PolishBool::~PolishBool()
 {}
 
-bool	PolishBool::Evaluate(){
+bool	PolishBool::Evaluate(const varmap&){
 	return this->_value;
 }
 

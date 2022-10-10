@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:17:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/30 17:43:10 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 16:01:18 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class PolishNode : public IPolishItem
 		PolishNode(char op, IPolishItem* left, IPolishItem* right);
 		~PolishNode();
 
-		bool	Evaluate();
+		bool	Evaluate(const varmap& = {});
 		std::string	Draw(std::string = "");
 };
 

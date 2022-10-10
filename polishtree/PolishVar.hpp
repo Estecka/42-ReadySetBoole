@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PolishNot.cpp                                      :+:      :+:    :+:   */
+/*   PolishVar.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 18:10:54 by abaur             #+#    #+#             */
+/*   Created: 2022/10/10 15:37:39 by abaur             #+#    #+#             */
 /*   Updated: 2022/10/10 16:01:18 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "InvalidTreeException.hpp"
-#include "PolishNot.hpp"
+#ifndef POLISHVAR_HPP
+#define POLISHVAR_HPP
 
-PolishNot::PolishNot(IPolishItem* child)
-:_child(child)
-{}
+#include "IPolishItem.hpp"
 
-PolishNot::~PolishNot(){
-	if (this->_child)
-		delete this->_child;
-}
+class PolishVar : public IPolishItem
+{
+public:
+	char	_name;
 
-bool PolishNot::Evaluate(const varmap& values){
-	if (!this->_child)
-		throw InvalidTreeException("A node has missing components");
-	return !_child->Evaluate(values);
-}
-std::string	PolishNot::Draw(std::string prefix){
+	PolishVar(char name);
+	~PolishVar();
 
-	return "!" + (_child ? _child->Draw(prefix+" ") : "??\n");
-}
+	bool	Evaluate(const varmap& = {});
+	std::string	Draw(std::string = "");
+};
+
+#endif

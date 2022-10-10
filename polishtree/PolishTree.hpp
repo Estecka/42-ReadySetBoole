@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:44:06 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 15:04:24 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 15:44:36 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "PolishBool.hpp"
 #include "PolishNode.hpp"
 #include "PolishNot.hpp"
+#include "PolishVar.hpp"
 #include "TreeBuilder.hpp"
 
 #endif

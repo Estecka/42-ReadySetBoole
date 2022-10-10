@@ -4,6 +4,8 @@ HDRS = \
 	IPolishItem.hpp \
 	PolishBool.hpp \
 	PolishNode.hpp \
+	PolishNot.hpp \
+	PolishVar.hpp \
 	TreeBuilder.hpp \
 
 SRCS = \
@@ -12,6 +14,7 @@ SRCS = \
 	PolishBool.o \
 	PolishNode.o \
 	PolishNot.o \
+	PolishVar.o \
 	TreeBuilder.o \
 
 NAME = polishtree.a

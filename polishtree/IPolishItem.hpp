@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:23:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/30 17:42:32 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 16:05:15 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 #define IPOLISH_ITEM
 
 #include <iostream>
+#include <map>
 
 class IPolishItem
 {
 public:
+	typedef std::map<char, bool>	varmap;
+
 	virtual ~IPolishItem(){};
 
 	/**
 	 * Collapse the item into a single boolean value.
-	 * @throw InvalidTreeException	The tree  is incomplete  or contains unknown
+	 * @param values	The value to be associated with each variable names.
+	 * @throw InvalidTreeException	The tree is incomplete or contains undefined
 	 * 	variables.
 	 */
-	virtual bool	Evaluate() = 0;
+	virtual bool	Evaluate(const varmap& values = {}) = 0;
 	/**
 	 * Draw a visual representation of the Item.
 	 * 
