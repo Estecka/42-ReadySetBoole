@@ -6,11 +6,13 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/07 18:21:04 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/10 14:47:45 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "eval_expr.hpp"
+
+#include "../polishtree/PolishTree.hpp"
 
 
 static void	BuildTree(const std::string& str, IPolishItem*& outTree, std::string& outRemainder);

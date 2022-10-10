@@ -1,22 +1,26 @@
 HDRS = \
-	eval_expr.hpp \
+	InvalidExprException.hpp \
+	InvalidTreeException.hpp \
+	IPolishItem.hpp \
+	PolishBool.hpp \
+	PolishNode.hpp \
 
-SRCS = main.o \
-	eval_expr.o \
+SRCS = \
+	InvalidExprException.o \
+	InvalidTreeException.o \
+	PolishBool.o \
+	PolishNode.o \
+	PolishNot.o \
 
-LIBS = \
-	../logutil/logutil.a \
-	../polishtree/polishtree.a \
-
-NAME =  eval_formula.out
+NAME = polishtree.a
 CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
 
 all: headers_test ${NAME} ${TEST}
 
-${NAME}: ${LIBS} ${SRCS}
-	${CXX} ${SRCS} ${LIBS} -o ${NAME} ${CPPFLAGS}
+${NAME}: ${SRCS}
+	ar rcs ${NAME} ${SRCS}
 
 %.a: lib
 	make $(@F) -C $(@D)
