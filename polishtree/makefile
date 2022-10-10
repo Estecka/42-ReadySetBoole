@@ -4,6 +4,7 @@ HDRS = \
 	IPolishItem.hpp \
 	PolishBool.hpp \
 	PolishNode.hpp \
+	TreeBuilder.hpp \
 
 SRCS = \
 	InvalidExprException.o \
@@ -11,6 +12,7 @@ SRCS = \
 	PolishBool.o \
 	PolishNode.o \
 	PolishNot.o \
+	TreeBuilder.o \
 
 NAME = polishtree.a
 CXX = clang++

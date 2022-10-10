@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_expr.cpp                                      :+:      :+:    :+:   */
+/*   TreeBuilder.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 15:04:54 by abaur            ###   ########.fr       */
+/*   Created: 2022/10/10 14:59:48 by abaur             #+#    #+#             */
+/*   Updated: 2022/10/10 15:06:25 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "eval_expr.hpp"
+#ifndef TREEBUILDER_HPP
+#define TREEBUILDER_HPP
 
-#include "../polishtree/PolishTree.hpp"
+#include "./IPolishItem.hpp"
 
-bool	eval_formula(const std::string& str) {
-	IPolishItem*	tree;
-	std::string 	remainder;
+void	BuildTree(const std::string& expr, IPolishItem*& outTree, std::string& outRemainder);
 
-	BuildTree(str, tree, remainder);
-	if (remainder.size())
-		throw InvalidExprException("Expression has trailing characters");
-	std::cerr << tree->Draw();
-
-	return tree->Evaluate();
-}
+#endif
