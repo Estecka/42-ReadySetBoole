@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:45:17 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 16:01:18 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/11 17:41:39 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ PolishVar::~PolishVar()
 {}
 
 bool PolishVar::Evaluate(const varmap& values){
-	return values.at(_name);
+	return values[_name - 'A'];
 }
 
 std::string	 PolishVar::Draw(std::string){

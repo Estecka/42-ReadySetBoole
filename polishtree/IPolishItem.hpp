@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:23:18 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/10 16:05:15 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/11 16:46:19 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class IPolishItem
 {
 public:
-	typedef std::map<char, bool>	varmap;
+	typedef bool	varmap[26];
 
 	virtual ~IPolishItem(){};
 

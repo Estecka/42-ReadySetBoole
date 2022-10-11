@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/11 16:32:39 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/11 17:43:59 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ static void	Header(const std::string& expr, short& varcount, char shiftmap[26]){
 	std::cout << "| = |" << std::endl;
 }
 
-static void	Row(short i, short varcount, const char shiftmap[26]){
+static void	Row(short i, short varcount, const char* shiftmap, IPolishItem& tree){
 	bool varmap[26] = { 0 }; // Translates variable name into its value;
 
 	for (int j=0; j<varcount; j++){
 		bool value = 1 & (i>>j);
-		varmap[(short)shiftmap[j]] = value;
+		varmap[shiftmap[j] - 'A'] = value;
 		std::cout << "| " << (int)value << " ";
 	}
-	std::cout << "| " << i << " |" << std::endl;
+	std::cout << "| " << tree.Evaluate(varmap) << " |" << std::endl;
 }
 
 
@@ -46,7 +46,7 @@ static IPolishItem*	GetTree(const std::string& expr){
 
 	BuildTree(expr, tree, remainder);
 	if (remainder.size())
-		throw InvalidExprException("Expression has trailing characters");
+		delete tree, throw InvalidExprException("Expression has trailing characters");
 
 	return tree;
 }
@@ -65,7 +65,8 @@ void	print_truth_table(const std::string& str) {
 	std::cout << "|---|" << std::endl;
 
 	for (int i=0; i<(1<<varcount); i++)
-		Row(i, varcount, shiftmap);
+		Row(i, varcount, shiftmap, *tree);
 
 	std::cerr << std::endl;
+	delete tree;
 }
