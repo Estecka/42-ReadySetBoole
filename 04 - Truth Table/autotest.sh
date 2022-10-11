@@ -7,4 +7,5 @@ make all \
 && ./truth_table.out "CC^" "DE^" \
 && ./truth_table.out "CC=" "DE=" \
 && ./truth_table.out "CC>" "DE>" \
+&& ./truth_table.out "AB|C&" "XY|H&" "MM|K&" \
 ;
