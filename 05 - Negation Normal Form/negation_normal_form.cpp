@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/15 18:04:34 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/19 17:08:55 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,32 @@ static std::string	negational_normal_form(bool neg, const char* limit, const cha
 
 
 	if (('A' <= *head && *head <= 'Z')
-	||  (*head == '0' || *head == '1')){
+	||  (*head == '0' || *head == '1'))
+	{
 		outEnd = head-1;
 		return *head + std::string(neg?"!":"");
+	} 
+	else if (*head == '=' || *head =='^')
+	{
+		const char* Astart;
+		std::string  B = negational_normal_form(false, limit, head-1, Astart);
+		std::string nB = negational_normal_form(true,  limit, head-1, Astart);
+		std::string  A = negational_normal_form(false, limit, Astart, outEnd);
+		std::string nA = negational_normal_form(true,  limit, Astart, outEnd);
+		if ((neg) == (*head == '='))
+			return (nA+nB+'|') + (A+B+'|') + '&';
+		else
+			return (A+B+'&') + (nA+nB+'&') + '|';
 	}
-	else {
+	else 
+	{
 		bool negA, negB;
 		char op;
 		switch (*head){
 			default:	throw InvalidExprException("Expression contains unsupported symbols");
 			case '|':	negA=neg,   negB=neg,   op=(neg?'&':*head); break;
 			case '&':	negA=neg,   negB=neg,   op=(neg?'|':*head); break;
-			case '^':	negA=false, negB=false, op=(neg?'=':*head); break;
-			case '=':	negA=false, negB=false, op=(neg?'^':*head); break;
-			case '>':	negA=false, negB=neg,   op=(neg?'=':*head); break;
+			case '>':	negA=!neg,  negB=neg,   op=(neg?'&':'|'  ); break;
 		}
 		std::string B = negational_normal_form(negB, limit, head-1, outEnd);
 		std::string A = negational_normal_form(negA, limit, outEnd, outEnd);
