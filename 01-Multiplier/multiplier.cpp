@@ -6,11 +6,11 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:07:02 by abaur             #+#    #+#             */
-/*   Updated: 2022/09/17 17:57:49 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/26 17:36:51 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../00 - Adder/adder.hpp"
+#include "../00-Adder/adder.hpp"
 
 /**
  * Fills all bits with the value of the first bit.

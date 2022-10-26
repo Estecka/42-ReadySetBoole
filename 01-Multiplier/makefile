@@ -1,6 +1,6 @@
 DEP = main.o  \
 	multiplier.o \
-	../00\ -\ Adder/adder.o \
+	../00-Adder/adder.o \
 	../logutil/logutil.a \
 
 NAME = multiplier.out
