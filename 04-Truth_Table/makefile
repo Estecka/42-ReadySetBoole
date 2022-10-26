@@ -5,6 +5,7 @@ SRCS = main.o \
 	truth_table.o \
 
 LIBS = \
+	../03-Boolean_Evaluation/eval_formula.a \
 	../logutil/logutil.a \
 	../polishtree/polishtree.a \
 

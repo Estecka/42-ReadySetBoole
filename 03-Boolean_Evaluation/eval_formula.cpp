@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/25 17:51:17 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/26 18:41:42 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	eval_formula(const bool varmap[26], const char* limit, const char* h
 	}
 }
 
-bool	eval_formula(const std::string& str, const bool varmap[26], size_t& outSize) {
+extern bool	eval_formula(const std::string& str, const bool varmap[26], size_t& outSize) {
 	const char*	outEnd;
 	const char* c_str = str.c_str();
 
@@ -61,13 +61,16 @@ bool	eval_formula(const std::string& str, const bool varmap[26], size_t& outSize
 	return r;
 }
 
-bool	eval_formula(const std::string& str, size_t& outSize) {
+extern bool	eval_formula(const std::string& str, size_t& outSize) {
 	return eval_formula(str, (bool[26]){}, outSize);
 }
-bool	eval_formula(const std::string& str, bool varmap[26]) {
+
+extern bool	eval_formula(const std::string& str, const bool varmap[26]) {
 	size_t	outSize;
 	return eval_formula(str, varmap, outSize);
 }
-bool	eval_formula(const std::string& str) {
-	return eval_formula(str, (bool[26]){});
+
+extern bool	eval_formula(const std::string& str) {
+	size_t	outSize;
+	return eval_formula(str, (bool[26]){}, outSize);
 }
