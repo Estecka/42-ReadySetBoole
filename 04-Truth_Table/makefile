@@ -1,23 +1,30 @@
 HDRS = \
 	truth_table.hpp \
 
-SRCS = main.o \
+SRCS = \
 	truth_table.o \
 
+TEST_SRCS = main.o \
+
 LIBS = \
+	./truth_table.a \
 	../03-Boolean_Evaluation/eval_formula.a \
 	../logutil/logutil.a \
 	../polishtree/polishtree.a \
 
-NAME =  truth_table.out
+NAME =  truth_table.a
+TEST =  truth_table.out
 CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
 
 all: headers_test ${NAME} ${TEST}
 
-${NAME}: ${LIBS} ${SRCS}
-	${CXX} ${SRCS} ${LIBS} -o ${NAME} ${CPPFLAGS}
+${TEST}: ${LIBS} ${TEST_SRCS}
+	${CXX} ${TEST_SRCS} ${LIBS} -o ${TEST} ${CPPFLAGS}
+
+${NAME}: ${HDRS} ${SRCS}
+	ar rcs ${NAME} ${SRCS}
 
 %.a: lib
 	make $(@F) -C $(@D)

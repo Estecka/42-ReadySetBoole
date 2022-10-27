@@ -5,6 +5,8 @@ SRCS = main.o \
 	negation_normal_form.o \
 
 LIBS = \
+	../04-Truth_Table/truth_table.a \
+	../03-Boolean_Evaluation/eval_formula.a \
 	../logutil/logutil.a \
 	../polishtree/polishtree.a \
 

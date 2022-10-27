@@ -6,14 +6,15 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:19:27 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/15 14:55:18 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:53:29 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "negation_normal_form.hpp"
-#include "../logutil/logutil.hpp"
 
+#include "../logutil/logutil.hpp"
 #include "../polishtree/PolishTree.hpp"
+#include "../04-Truth_Table/truth_table.hpp"
 
 #include <iostream>
 #include <exception>
@@ -36,8 +37,16 @@ extern int	main(int argc, char** argv){
 		std::cout << LOG_CYAN << dst->Draw();
 		if (remainder.length())
 			std::cout << LOG_BOLD_RED << "KO: Output expression has trailing characters" << std::endl;
-		std::cout << LOG_CLEAR << std::endl;
 
+		std::string	truth_table;
+		if (compare_truth_tables(argv[i], nnf, truth_table)){
+			std::cout << LOG_BOLD_RED "KO: Truth tables differ:\n" LOG_CLEAR << std::endl;
+		}
+		else
+			std::cout << LOG_BOLD_GREEN "Truth tables OK" LOG_CLEAR << std::endl;
+		std::cout << truth_table << std::endl;
+
+		std::cout << LOG_CLEAR << std::endl;
 		delete src, src=NULL;
 		delete dst, src=NULL;
 	}
