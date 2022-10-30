@@ -1,8 +1,10 @@
 HDRS = \
 	negation_normal_form.hpp \
 
-SRCS = main.o \
+SRCS = \
 	negation_normal_form.o \
+
+TEST_SRCS = main.o \
 
 LIBS = \
 	../04-Truth_Table/truth_table.a \
@@ -10,15 +12,19 @@ LIBS = \
 	../logutil/logutil.a \
 	../polishtree/polishtree.a \
 
-NAME =  negation_normal_form.out
+NAME =  negation_normal_form.a
+TEST =  negation_normal_form.out
 CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
 
 all: headers_test ${NAME} ${TEST}
 
-${NAME}: ${LIBS} ${SRCS}
-	${CXX} ${SRCS} ${LIBS} -o ${NAME} ${CPPFLAGS}
+${TEST}: ${TEST_SRCS} ${HDRS} ${NAME} ${LIBS}
+	${CXX} ${TEST_SRCS} ${NAME} ${LIBS} -o ${TEST} ${CPPFLAGS}
+
+${NAME}: ${HDRS} ${SRCS}
+	ar rcs ${NAME} ${SRCS}
 
 %.a: lib
 	make $(@F) -C $(@D)

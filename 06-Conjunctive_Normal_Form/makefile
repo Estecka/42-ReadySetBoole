@@ -1,18 +1,20 @@
 HDRS = \
-	truth_table.hpp \
+	conjunctive_normal_form.hpp \
 
 SRCS = \
-	truth_table.o \
+	conjunctive_normal_form.o \
 
 TEST_SRCS = main.o \
 
 LIBS = \
+	../05-Negation_Normal_Form/negation_normal_form.a \
+	../04-Truth_Table/truth_table.a \
 	../03-Boolean_Evaluation/eval_formula.a \
 	../logutil/logutil.a \
 	../polishtree/polishtree.a \
 
-NAME =  truth_table.a
-TEST =  truth_table.out
+NAME =  conjunctive_normal_form.a
+TEST =  conjunctive_normal_form.out
 CXX = clang++
 CPPFLAGS = -Wall -Wextra
 
