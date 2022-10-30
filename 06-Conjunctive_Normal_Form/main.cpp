@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 14:19:27 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/30 18:30:13 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/30 19:25:33 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,35 @@
 
 #include <iostream>
 #include <exception>
+#include <cstring>
+
+static bool CheckNormalForm(const std::string& expr){
+	const char*const first = expr.c_str();
+	const char*const last  = first + expr.length() - 1;
+
+	for (const char* i=last; i>=first; i--){
+		if (('A' <= *i && *i <= 'Z')
+		||  ('0' == *i || *i == '1')){
+			continue;
+		}
+		else if (!std::strchr("!&|", *i)) {
+			std::cout << LOG_BOLD_RED "KO: Invalid character: " << *i << LOG_CLEAR << std::endl;
+			return false;
+		}
+		else if (i[1] == '!') {
+			std::cout << LOG_BOLD_RED "KO: Forbidden negation: " << *i << "!" LOG_CLEAR << std::endl;
+			return false;
+		}
+		else if (i[1] && i[1]!='&' && *i=='&') {
+			std::cout << LOG_BOLD_RED "KO: Forbidden conjunction: &" << i[1] << LOG_CLEAR << std::endl;
+			return false;
+		}
+	}
+
+	std::cout << LOG_BOLD_GREEN "Normal form OK" LOG_CLEAR << std::endl;
+	return true;
+}
+
 
 extern int	main(int argc, char** argv){
 	IPolishItem	*src=NULL, *dst=NULL;
@@ -37,6 +66,8 @@ extern int	main(int argc, char** argv){
 		std::cout << LOG_CYAN << dst->Draw();
 		if (remainder.length())
 			std::cout << LOG_BOLD_RED << "KO: Output expression has trailing characters" << std::endl;
+
+		CheckNormalForm(nnf);
 
 		std::string	truth_table;
 		if (compare_truth_tables(argv[i], nnf, truth_table)){
