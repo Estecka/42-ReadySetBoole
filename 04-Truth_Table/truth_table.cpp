@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/27 17:48:15 by abaur            ###   ########.fr       */
+/*   Updated: 2022/10/30 16:25:27 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ extern bool	compare_truth_tables(const std::string& a, const std::string& b, std
 
 
 	Header(cout, a+b, varcount, shiftmap);
-	cout << "| " LOG_BOLD_CLEAR "src" LOG_CLEAR " | " LOG_BOLD_CYAN "nnf" LOG_CYAN " |" LOG_CLEAR << std::endl;
+	cout << "| " LOG_BOLD_CLEAR "src" LOG_CLEAR " | " LOG_BOLD_CYAN "dst" LOG_CYAN " |" LOG_CLEAR << std::endl;
 
 	for (int i=0; i<varcount; i++)
 		cout << "|---";
