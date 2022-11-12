@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:21:03 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/29 19:41:53 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/05 17:21:04 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../polishtree/PolishTree.hpp"
 
 #include <iostream>
+#include <stdnoreturn.h>
 #include <cstdlib>
 #include <cstring>
 
@@ -40,10 +41,10 @@ static void	List(int argc, const char*const* argv){
 }
 
 
-static void	Compare(const char* base, int argc, const char*const* argv){
+static void	Compare(const char* base, int argc, const char*const* argv, bool shorter){
 	IPolishItem* tree;
 	std::string remainder;
-	std::cout << base << std::endl;
+	std::cout << LOG_BOLD_CLEAR << base << LOG_CLEAR << std::endl;
 
 	BuildTree(base, tree, remainder);
 	if (remainder.length())
@@ -60,21 +61,45 @@ static void	Compare(const char* base, int argc, const char*const* argv){
 			ft::clog << ft::log::warning << "Expression has trailing characters" << std::endl;
 		std::cerr << LOG_CYAN << tree->Draw() << LOG_CLEAR;
 
-		compare_truth_tables(base, argv[i], remainder);
-		std::cout << remainder;
+		bool diff = compare_truth_tables(base, argv[i], remainder);
+		if (!shorter)
+			std::cout << remainder;
+		else if (diff)
+			std::cout << LOG_BOLD_RED "Diff" LOG_CLEAR << std::endl;
+		else
+			std::cout << LOG_BOLD_GREEN "OK" LOG_CLEAR << std::endl,
 		delete tree;
 	}
 }
 
+static noreturn void	ArgcErr(){
+	std::cerr << "Not enough arguments" << std::endl;
+	exit(EXIT_FAILURE);
+}
+
 extern int	main(int argc, char** argv){
-	if (argc < 2 || !std::strcmp(argv[1], "--compare")){
-		if (argc < 4){
-			std::cerr << "Not enough arguments" << std::endl;
-			exit(EXIT_FAILURE);
-		}
-		else
-			Compare(argv[2], argc-3, argv+3);
+	bool compare=false, shorter=false;
+
+	argc--, argv++;
+	if (argc < 1)
+		ArgcErr();
+
+	compare = !std::strcmp(argv[0], "--compare");
+	if (compare){
+		argc--, argv++;
+		if (argc < 2)
+			ArgcErr();
 	}
+	
+	shorter = !std::strcmp(argv[0], "--short");
+	if (shorter){
+		if (argc < 3)
+			ArgcErr();
+		argc--, argv++;
+	}
+
+	if (compare)
+		Compare(argv[0], argc-1, argv+1, shorter);
 	else
-		List(argc-1, argv+1);
+		List(argc, argv);
 }
