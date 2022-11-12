@@ -11,6 +11,7 @@ LIBS = \
 	../04-Truth_Table/truth_table.a \
 	../03-Boolean_Evaluation/eval_formula.a \
 	../logutil/logutil.a \
+	../polishlookup/polishlookup.a \
 	../polishtree/polishtree.a \
 
 NAME =  conjunctive_normal_form.a

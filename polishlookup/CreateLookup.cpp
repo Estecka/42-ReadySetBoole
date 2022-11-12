@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:22:51 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/04 19:47:47 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/12 14:50:20 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,28 @@
 #include <exception>
 #include <iostream>
 
-#define DUMP	std::cerr << '- ' << *head << ' ' << *jump << std::endl
-
+/**
+ * Populates a jump table for a given expression.
+ * @param head	The root of the expression to parse
+ * @param jump	The position of the root in the corresponding  jump table.
+ * @return	The length of the parsed expression.
+ */
 static int	CreateLookup(const char* head, int* jump){
 	if (('A' <= *head && *head <= 'Z')
 	||  ('0' == *head || *head == '1')){
 		*jump = 0;
-		DUMP; return 1;
+		return 1;
 	}
 	else if (*head == '!'){
 		*jump = 0;
-		DUMP; return 1 + CreateLookup(head-1, jump-1);
+		return 1 + CreateLookup(head-1, jump-1);
 	}
 	else if (std::strchr("&|^=>", *head)){
 		*jump = -1 - CreateLookup(head-1, jump-1);
-		DUMP; return (-*jump) + CreateLookup(head+*jump, jump+*jump);
+		return (-*jump) + CreateLookup(head+*jump, jump+*jump);
 	} else {
 		*jump = 0;
-		DUMP; return 0;
+		return 0;
 	}
 }
 

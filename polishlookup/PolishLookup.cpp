@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 18:16:32 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/04 19:09:38 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/12 15:45:21 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,39 @@ _head(head),
 _jump(jump)
 {}
 
+PolishLookup::PolishLookup(const std::string& expr, const JumpString& jumpTable):
+_head(     expr.c_str() +      expr.length() - 1),
+_jump(jumpTable.c_str() + jumpTable.length() - 1)
+{}
+
+
 PolishLookup::PolishLookup(const PolishLookup& other):
 _head(other._head),
 _jump(other._jump)
 {}
+
 PolishLookup::~PolishLookup()
 {}
 
 
-void	PolishLookup::GetMemory(int& outLen, const char*& outStr, const int*& outJmp){
+void	PolishLookup::GetMemory(int& outLen, const char*& outStr, const int*& outJmp) const{
 	outLen = this->Tail();
 	outStr = this->_head + outLen;
 	outJmp = this->_jump + outLen;
 	outLen = 1-outLen;
 }
 
-int	PolishLookup::Left(){
+int	PolishLookup::Left() const {
 	return *_jump;
 }
-int	PolishLookup::Right(){
+int	PolishLookup::Right() const {
 	if (*_jump || *_head == '!' )
 		return -1;
 	else
 		return 0;
 }
 
-int	PolishLookup::Tail() {
+int	PolishLookup::Tail() const {
 	int i = 0;
 
 	while (true) 
@@ -73,8 +80,8 @@ PolishLookup&	PolishLookup::operator-=(int i) { _jump-=i; _head-=i; return *this
 PolishLookup&	PolishLookup::operator++() { _jump++; _head++; return *this; };
 PolishLookup&	PolishLookup::operator--() { _jump--; _head--; return *this; };
 
-PolishLookup	PolishLookup::operator+(int i) { return PolishLookup(_head+i, _jump+i); };
-PolishLookup	PolishLookup::operator-(int i) { return PolishLookup(_head+i, _jump+i); };
+PolishLookup	PolishLookup::operator+(int i) const { return PolishLookup(_head+i, _jump+i); };
+PolishLookup	PolishLookup::operator-(int i) const { return PolishLookup(_head+i, _jump+i); };
 
 PolishLookup	PolishLookup::operator++(int) { PolishLookup r = *this; ++(*this); return r; };
 PolishLookup	PolishLookup::operator--(int) { PolishLookup r = *this; --(*this); return r; };

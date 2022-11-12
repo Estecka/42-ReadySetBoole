@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:40:04 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/04 19:01:33 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/12 15:42:50 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ public:
 
 	PolishLookup(void);
 	PolishLookup(const char* _head, const int* _jump);
+	PolishLookup(const std::string& expr, const JumpString& jumpTable);
 	PolishLookup(const PolishLookup&);
 	~PolishLookup();
 
@@ -45,22 +46,22 @@ public:
 	 * @param outStr	Output points to the first character of the sub-expression's string.
 	 * @param ouTable	Output points to the first element of the sub-expression's jump table.
 	 */
-	void	GetMemory(int& outLen, const char*& outStr, const int*& outTable);
+	void	GetMemory(int& outLen, const char*& outStr, const int*& outTable) const;
 
 	/**
 	 * @return	If this expression starts with a binary node, the index of its 
 	 * second operand. 0 otherwise.
 	 */
-	int	Left();
+	int	Left() const;
 	/**
 	 * @return	If this expression starts with a node, the index of its first 
 	 * operand. 0 otherwise.
 	 */
-	int	Right();
+	int	Right() const;
 	/**
 	 * The index of the leftmost item of this expresssion.
 	 */
-	int	Tail();
+	int	Tail() const;
 
 
 	/**************************************************************************/
@@ -70,9 +71,9 @@ public:
 	PolishLookup&	operator=(const PolishLookup&);
 
 	PolishLookup&	operator+=(int);
-	PolishLookup	operator+(int);
+	PolishLookup	operator+(int) const;
 	PolishLookup&	operator-=(int);
-	PolishLookup	operator-(int);
+	PolishLookup	operator-(int) const;
 
 	PolishLookup	operator++(int);
 	PolishLookup&	operator++();
