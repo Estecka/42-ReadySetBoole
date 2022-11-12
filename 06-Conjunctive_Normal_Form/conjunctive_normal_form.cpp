@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:39:34 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/12 17:13:55 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/12 21:19:49 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,27 @@ static pExpr	SwapBinary(const pExpr& left, const pExpr& right){
 /**
  * Turns AB&CD&& into ABCD&&&
  */
-static pExpr	MergeAnds(const PolishLookup& node){
-	//placeholder
-	return Noop(node);
+static pExpr	MergeAnds(const PolishLookup& node, const pExpr& _left, const PolishLookup& left, const pExpr& _right){
+	pExpr	_lOperands;
+	pExpr	_lOperators;
+	size_t opCount = 0;
+
+	while (left._head[-opCount] == '&')
+		opCount++;
+
+	opCount = _left.str.length() - opCount;
+	_lOperands.str = _left.str.substr(0, opCount);
+	_lOperands.jmp = _left.jmp.substr(0, opCount);
+	_lOperators.str = _left.str.substr(opCount);
+	_lOperators.jmp = _left.jmp.substr(opCount);
+
+	for (size_t i=0; i<_lOperators.jmp.length(); i++)
+		_lOperators.jmp[i] += *node._jump;
+
+	return (pExpr){
+		_lOperands.str + _right.str + *node._head + _lOperators.str,
+		_lOperands.jmp + _right.jmp + *node._jump + _lOperators.jmp,
+	};
 }
 
 
@@ -73,7 +91,7 @@ static pExpr	conjunctive_normal_form(const PolishLookup& node){
 		else if (*left._head != '&')
 			return Noop(node);
 		else
-			return MergeAnds(node);
+			return MergeAnds(node, _left, left, _right);
 	}
 	else
 	{

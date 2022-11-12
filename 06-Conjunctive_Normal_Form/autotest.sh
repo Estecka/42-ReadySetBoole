@@ -7,7 +7,7 @@ make all \
 && ./conjunctive_normal_form.out "AB=!" "AB^!" "AB>!" \
 && ./conjunctive_normal_form.out "AB=" "AB^" "AB>" \
 && echo -e "\n\t# COMPLEX EXPRESSIONS" \
-&& ./conjunctive_normal_form.out "AB&C&" "AB&CD&&" \
+&& ./conjunctive_normal_form.out "AB&C&" "AB&CD&&" "ABC&&DE&FG&&&" "DA&B!C&&EN&I!!CK!||&H&&" \
 && ./conjunctive_normal_form.out "AB&C|" "AB&CD&|" "AB&CD|&" "AB&CD|&" \
 && echo -e "\n\t# NO-OP EXPRESSIONS" \
 && ./conjunctive_normal_form.out "AB&" "ABC&&" "ABCD&&&" \
