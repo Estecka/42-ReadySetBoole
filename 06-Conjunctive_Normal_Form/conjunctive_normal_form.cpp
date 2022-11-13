@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:39:34 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/12 21:19:49 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/13 18:46:02 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ struct pExpr {
 
 
 /**
- * Clones the expression withour modifying it
+ * Clones the expression withour modifying it.
+ * Should only be used on unary or leaf nodes. For binary nodes, whose childs 
+ * are always recalculated, use Update instead.
  */
 static pExpr	Noop(const PolishLookup& node){
 	const char*	str;
@@ -35,6 +37,17 @@ static pExpr	Noop(const PolishLookup& node){
 		JumpString(table, len)
 	};
 }
+
+/**
+ * Returns a new binary node with updated childs.
+ */
+static pExpr	Update(const PolishLookup& node, const pExpr& left, const pExpr& right){
+	return (pExpr){
+		left.str + right.str + *node._head,
+		left.jmp + right.jmp + (int)(right.jmp.length() + 1),
+	};
+}
+
 
 /**
  * Turns AB&C& into CAB&&
@@ -83,20 +96,20 @@ static pExpr	conjunctive_normal_form(const PolishLookup& node){
 	PolishLookup right(_right.str, _right.jmp);
 
 	if (*left._head != '&' && *right._head != '&')
-		return Noop(node);
+		return Update(node, _left, _right);
 
 	if (*node._head == '&') {
 		if (*right._head != '&')
 			return SwapBinary(_left, _right);
 		else if (*left._head != '&')
-			return Noop(node);
+			return Update(node, _left, _right);
 		else
 			return MergeAnds(node, _left, left, _right);
 	}
 	else
 	{
 		//placeholder
-		return Noop(node);
+		return Update(node, _left, _right);
 	}
 
 
