@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:40:04 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/12 15:42:50 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/14 17:08:32 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #define POLISHLOOKUP_HPP
 
 #include <string>
+#include <iostream>
 
 typedef std::basic_string<int>	JumpString;
 struct	PolishLookup;
+
+std::ostream&	operator<<(std::ostream&, JumpString);
 
 /**
  * @param inExpr	The expression that will be referenced to by the lookup.

@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 18:16:32 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/12 15:45:21 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/14 17:48:48 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,20 @@ PolishLookup&	PolishLookup::operator++() { _jump++; _head++; return *this; };
 PolishLookup&	PolishLookup::operator--() { _jump--; _head--; return *this; };
 
 PolishLookup	PolishLookup::operator+(int i) const { return PolishLookup(_head+i, _jump+i); };
-PolishLookup	PolishLookup::operator-(int i) const { return PolishLookup(_head+i, _jump+i); };
+PolishLookup	PolishLookup::operator-(int i) const { return PolishLookup(_head-i, _jump-i); };
 
 PolishLookup	PolishLookup::operator++(int) { PolishLookup r = *this; ++(*this); return r; };
 PolishLookup	PolishLookup::operator--(int) { PolishLookup r = *this; --(*this); return r; };
 
+std::ostream&	operator<<(std::ostream& cout, JumpString str){
+	for (size_t i=0; i<str.length(); i++)
+	if (str[i] > 0)
+		cout << '#';
+	else if (str[i] < -9)
+		cout << (char)('a' - 10 - str[i]) ;
+	else if (str[i])
+		cout << -str[i];
+	else
+		cout << '_';
+	return cout;
+}

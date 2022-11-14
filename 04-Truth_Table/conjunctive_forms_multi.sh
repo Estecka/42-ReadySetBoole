@@ -2,6 +2,8 @@
 
 make all \
 && echo -e '\n----\n' && ./truth_table.out --compare --short 'ABCD&&|' 'AB|AC|AD|&&' \
+&& echo -e '\n----\n' && ./truth_table.out --compare --short 'AB&CD&|' 'AC|AD|BC|BD|&&&' \
+&& echo -e '\n----\n' && ./truth_table.out --compare --short 'ABC&&DEF&&|' 'AD|AE|AF|BD|BE|BF|CD|CE|CF|&&&&&&&&' \
 && echo -e '\n----\n' && ./truth_table.out --compare --short 'ABCD&||' 'ABC||ABD||&'\
 && echo -e '\n----\n' && ./truth_table.out --compare --short 'ABCDE&&||' 'ABC||ABD||ABE||&&' \
 && echo -e '\n----\n' && ./truth_table.out --compare --short 'ABCDE&|||' 'ABCD|||ABCE|||&' \

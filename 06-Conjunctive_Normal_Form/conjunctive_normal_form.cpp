@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:39:34 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/13 18:46:02 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/14 18:27:51 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "../05-Negation_Normal_Form/negation_normal_form.hpp"
 #include "../polishlookup/PolishLookup.hpp"
 
+#include <vector>
+
 struct pExpr {
 	std::string	str;
 	JumpString	jmp;
@@ -22,9 +24,7 @@ struct pExpr {
 
 
 /**
- * Clones the expression withour modifying it.
- * Should only be used on unary or leaf nodes. For binary nodes, whose childs 
- * are always recalculated, use Update instead.
+ * Clones the expression without modifying it.
  */
 static pExpr	Noop(const PolishLookup& node){
 	const char*	str;
@@ -44,7 +44,7 @@ static pExpr	Noop(const PolishLookup& node){
 static pExpr	Update(const PolishLookup& node, const pExpr& left, const pExpr& right){
 	return (pExpr){
 		left.str + right.str + *node._head,
-		left.jmp + right.jmp + (int)(right.jmp.length() + 1),
+		left.jmp + right.jmp + -(int)(right.jmp.length() + 1),
 	};
 }
 
@@ -55,12 +55,13 @@ static pExpr	Update(const PolishLookup& node, const pExpr& left, const pExpr& ri
 static pExpr	SwapBinary(const pExpr& left, const pExpr& right){
 	return (pExpr){
 		right.str + left.str + '&',
-		right.jmp + left.jmp + (int)(left.jmp.length()+1)
+		right.jmp + left.jmp + -(int)(left.jmp.length()+1)
 	};
 }
 
 /**
  * Turns AB&CD&& into ABCD&&&
+ * Also aplicable for any amount of successive & in any child.
  */
 static pExpr	MergeAnds(const PolishLookup& node, const pExpr& _left, const PolishLookup& left, const pExpr& _right){
 	pExpr	_lOperands;
@@ -85,6 +86,39 @@ static pExpr	MergeAnds(const PolishLookup& node, const pExpr& _left, const Polis
 	};
 }
 
+static inline void	FindItems(PolishLookup i, std::vector<pExpr>& outp){
+	while (true)
+	if (*i._head=='&'){
+		outp.push_back(Noop(i + i.Left()));
+		i += i.Right();
+	}
+	else {
+		outp.push_back(Noop(i));
+		return;
+	}
+}
+/**
+ * Turns AB&C| into AC|BC|&
+ * Also applicable for any amount of successive & in any child.
+ */
+static pExpr	MergeOrs(const PolishLookup& left, const PolishLookup& right){
+	std::vector<pExpr> lItems, rItems;
+	FindItems(left,  lItems);
+	FindItems(right, rItems);
+
+	pExpr result;
+	for (size_t l=0; l<lItems.size(); l++)
+	for (size_t r=0; r<rItems.size(); r++){
+		if (l || r) {
+			result.str += '&';
+			result.jmp += -(int)result.str.length();
+		}
+		result.str = lItems[l].str + rItems[r].str + '|'                              + result.str;
+		result.jmp = lItems[l].jmp + rItems[r].jmp + -(int)(rItems[r].jmp.length()+1) + result.jmp;
+	}
+	return result;
+}
+
 
 static pExpr	conjunctive_normal_form(const PolishLookup& node){
 	if (!node.Left() || !node.Right())
@@ -107,10 +141,7 @@ static pExpr	conjunctive_normal_form(const PolishLookup& node){
 			return MergeAnds(node, _left, left, _right);
 	}
 	else
-	{
-		//placeholder
-		return Update(node, _left, _right);
-	}
+		return MergeOrs(left, right);
 
 
 }
