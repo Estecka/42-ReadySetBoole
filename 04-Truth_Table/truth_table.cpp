@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/10/30 16:25:27 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/14 19:10:13 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ extern bool	compare_truth_tables(const std::string& a, const std::string& b, std
 	short	varcount = 0 ;
 	char	shiftmap[26] = { 0 }; // Translates variable column index into its name.
 	bool	varmap[26] = { 0 };
-	bool	diff = false;
+	bool	r = false;
 	std::stringstream cout;
 
 
@@ -86,13 +86,14 @@ extern bool	compare_truth_tables(const std::string& a, const std::string& b, std
 		Row(cout, i, varcount, shiftmap, varmap);
 		bool ra = eval_formula(a, varmap);
 		bool rb = eval_formula(b, varmap);
-		diff |= (ra != rb);
-		cout << "  " << (int)ra << "  |"
-		          << ((ra == rb) ? LOG_CYAN : LOG_BOLD_RED)
-		          << "  " << (int)rb << LOG_CYAN "  |"
+		bool diff = (ra != rb);
+		r |= (ra != rb);
+		cout << "  " << (int)ra << "  |" 
+		          << (diff ? LOG_BOLD_RED : LOG_CYAN)
+		          << "  " << (int)rb << LOG_CYAN "  |" << (diff?LOG_BOLD_RED"!":LOG_CYAN" ")
 		          << LOG_CLEAR << std::endl;
 	}
 
 	outTable = cout.str();
-	return diff;
+	return r;
 }

@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:39:34 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/14 18:27:51 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/15 01:53:03 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static pExpr	Noop(const PolishLookup& node){
 static pExpr	Update(const PolishLookup& node, const pExpr& left, const pExpr& right){
 	return (pExpr){
 		left.str + right.str + *node._head,
-		left.jmp + right.jmp + -(int)(right.jmp.length() + 1),
+		left.jmp + right.jmp + -(int)(right.jmp.length()+1),
 	};
 }
 
@@ -63,9 +63,10 @@ static pExpr	SwapBinary(const pExpr& left, const pExpr& right){
  * Turns AB&CD&& into ABCD&&&
  * Also aplicable for any amount of successive & in any child.
  */
-static pExpr	MergeAnds(const PolishLookup& node, const pExpr& _left, const PolishLookup& left, const pExpr& _right){
+static pExpr	MergeAnds(const pExpr& _left, const PolishLookup& left, const pExpr& _right){
 	pExpr	_lOperands;
 	pExpr	_lOperators;
+	int rSize;
 	size_t opCount = 0;
 
 	while (left._head[-opCount] == '&')
@@ -76,13 +77,14 @@ static pExpr	MergeAnds(const PolishLookup& node, const pExpr& _left, const Polis
 	_lOperands.jmp = _left.jmp.substr(0, opCount);
 	_lOperators.str = _left.str.substr(opCount);
 	_lOperators.jmp = _left.jmp.substr(opCount);
-
+	rSize = _right.jmp.length();
+	
 	for (size_t i=0; i<_lOperators.jmp.length(); i++)
-		_lOperators.jmp[i] += *node._jump;
+		_lOperators.jmp[i] -= rSize + 1;
 
 	return (pExpr){
-		_lOperands.str + _right.str + *node._head + _lOperators.str,
-		_lOperands.jmp + _right.jmp + *node._jump + _lOperators.jmp,
+		_lOperands.str + _right.str + '&'        + _lOperators.str,
+		_lOperands.jmp + _right.jmp + -(rSize+1) + _lOperators.jmp,
 	};
 }
 
@@ -97,6 +99,7 @@ static inline void	FindItems(PolishLookup i, std::vector<pExpr>& outp){
 		return;
 	}
 }
+
 /**
  * Turns AB&C| into AC|BC|&
  * Also applicable for any amount of successive & in any child.
@@ -138,7 +141,7 @@ static pExpr	conjunctive_normal_form(const PolishLookup& node){
 		else if (*left._head != '&')
 			return Update(node, _left, _right);
 		else
-			return MergeAnds(node, _left, left, _right);
+			return MergeAnds(_left, left, _right);
 	}
 	else
 		return MergeOrs(left, right);
