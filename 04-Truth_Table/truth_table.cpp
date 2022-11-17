@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:19:56 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/14 19:10:13 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/17 15:48:26 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,29 @@ static void	Row(std::ostream& cout, short i, short varcount, const char* shiftma
 	cout << "|";
 }
 
-extern void	print_truth_table(const std::string& expr) {
+extern std::string	get_truth_table(const std::string& expr) {
 	short	varcount = 0 ;
 	char	shiftmap[26] = { 0 }; // Translates variable column index into its name.
 	bool	varmap[26] = { 0 };
+	std::stringstream cout;
 
 
-	Header(std::cout, expr, varcount, shiftmap);
-	std::cout << "| = |" << std::endl;
+	Header(cout, expr, varcount, shiftmap);
+	cout << "| = |" << std::endl;
 
 	for (int i=0; i<varcount; i++)
-		std::cout << "|---";
-	std::cout << "|---|" << std::endl;
+		cout << "|---";
+	cout << "|---|" << std::endl;
 
 	for (int i=0; i<(1<<varcount); i++){
-		Row(std::cout, i, varcount, shiftmap, varmap);
-		std::cout <<  " " << (int)eval_formula(expr, varmap) << " |" << std::endl;
+		Row(cout, i, varcount, shiftmap, varmap);
+		cout <<  " " << (int)eval_formula(expr, varmap) << " |" << std::endl;
 	}
+	return cout.str();
+}
+
+extern void	print_truth_table(const std::string& expr) {
+	std::cout << get_truth_table(expr) << std::endl;
 }
 
 extern bool	compare_truth_tables(const std::string& a, const std::string& b, std::string& outTable){
