@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:21:03 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/19 02:57:00 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/20 15:21:47 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+
+template <class T>
+std::ostream&	operator<<(std::ostream& cout, const std::vector<T>& vec){
+	cout << "{ ";
+
+	for (size_t i=0; i<vec.size(); i++){
+		if (i)
+			cout << ", ";
+		cout << vec[i];
+	}
+
+	cout << " }";
+	return cout;
+}
 
 static void	CheckSet(const char* str, std::vector<std::vector<int>> allSets){
 	int	checklist = 0;
@@ -71,12 +85,7 @@ extern int	main(int argc, char** argv){
 	CheckSet(expr, allSets);
 	for (size_t x=0; x<allSets.size(); x++)
 	if (allSets[x].size()) {
-		std::cout << LOG_BOLD_CLEAR << (char)('A'+x) << ": { ";
-		for (size_t y=0; y<allSets[x].size(); y++){
-			if (y) std::cout << ", ";
-			std::cout << allSets[x][y];
-		}
-		std::cout << " }" << std::endl;
+		std::cout << LOG_BOLD_CLEAR << (char)('A'+x) << ": " << allSets[x] << std::endl;
 	}
 
 	std::cout << LOG_BOLD_CLEAR << expr << LOG_CLEAR << std::endl;
@@ -90,6 +99,7 @@ extern int	main(int argc, char** argv){
 		if (remainder.size())
 			ft::clog << ft::log::warning << "Expression has trailing characters" << std::endl;
 	}
+	std::cout << " = " << eval_set(expr, allSets) << std::endl;
 
 	std::cout << std::endl;
 }

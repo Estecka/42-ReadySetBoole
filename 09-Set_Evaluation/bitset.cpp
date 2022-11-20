@@ -34,8 +34,8 @@ std::vector<int>	bit_to_vec(const std::set<int>& universe, const bitset& bits){
 	std::vector<int> result;
 
 	std::set<int>::const_iterator elt = universe.begin();
-	for (int n=0; (n*sizeof(int))  <universe.size(); n++)
-	for (int i=0; (n*sizeof(int)+i)<universe.size(); i++, elt++) {
+	for (int n=0; (n*8*sizeof(int))  <universe.size(); n++)
+	for (int i=0; (n*8*sizeof(int)+i)<universe.size(); i++, elt++) {
 		if ((bits[n] >> i) & 1)
 			result.push_back(*elt);
 	}
