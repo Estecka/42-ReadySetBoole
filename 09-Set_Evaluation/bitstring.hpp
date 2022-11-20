@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:44:28 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/18 18:16:28 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/20 17:44:41 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@
 #include <set>
 #include <vector>
 
-typedef std::basic_string<int>	bitset;
+typedef std::basic_string<char>	bitstring;
 
-bitset          	set_to_bit(const std::set<int>& universe, const std::set<int>& set);
-bitset          	vec_to_bit(const std::set<int>& universe, const std::vector<int>& set);
-std::vector<int>	bit_to_vec(const std::set<int>& universe, const bitset& bits);
+bitstring       	set_to_bit(const std::set<int>& universe, const std::set<int>& set);
+bitstring       	vec_to_bit(const std::set<int>& universe, const std::vector<int>& set);
+std::vector<int>	bit_to_vec(const std::set<int>& universe, const bitstring& bits);
 
-bitset	operator&(const bitset& a, const bitset& b);
-bitset	operator|(const bitset& a, const bitset& b);
-bitset	operator^(const bitset& a, const bitset& b);
-bitset	operator%(const bitset& a, const bitset& b);
-bitset	operator<=(const bitset& a, const bitset& b);
-bitset	operator~(const bitset& a);
+bitstring	operator&(const bitstring& a, const bitstring& b);
+bitstring	operator|(const bitstring& a, const bitstring& b);
+bitstring	operator^(const bitstring& a, const bitstring& b);
+bitstring	operator%(const bitstring& a, const bitstring& b);
+bitstring	operator<=(const bitstring& a, const bitstring& b);
+bitstring	operator~(const bitstring& a);
 
 #endif

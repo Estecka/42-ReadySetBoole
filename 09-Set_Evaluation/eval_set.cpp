@@ -6,29 +6,38 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:08:52 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/20 15:21:14 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/20 18:09:02 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "eval_set.hpp"
-#include "bitset.hpp"
+#include "bitstring.hpp"
 
 #include "../polishtree/InvalidExprException.hpp"
 
 #include <set>
 #include <string>
 
-static bitset	eval_set(const bitset varmap[26], const char* limit, const char* head, const char*& outEnd){
+/**
+ * @param varmap	All bitstrings are assumed to be the same size.
+ * @return	A bitstring of the same size as the parameters.
+ */
+static bitstring	eval_set(const bitstring varmap[26], const char* limit, const char* head, const char*& outEnd){
 	if (head < limit)
 		throw InvalidExprException("Expression is incomplete");
 
 	outEnd = head - 1;
 	if ('A' <= *head && *head <= 'Z')
 		return varmap[(*head) - 'A'];
-	else if (*head == '!')
-		return ~eval_set(varmap, limit, outEnd, outEnd);
+	else switch (*head)
+	{
+		case '0':	return varmap[0] ^ varmap[0];
+		case '1':	return varmap[0] % varmap[0];
+		case '!':	return ~eval_set(varmap, limit, outEnd, outEnd);
+		default:	break;
+	}
 
-	bitset l, r;
+	bitstring l, r;
 	r = eval_set(varmap, limit, outEnd, outEnd);
 	l = eval_set(varmap, limit, outEnd, outEnd);
 	switch (*head)
@@ -49,8 +58,8 @@ std::vector<int>	eval_set(const std::string& expr, const std::vector<std::vector
 	for (size_t y=0; y<sets[x].size(); y++)
 		universe.insert(sets[x][y]);
 
-	bitset	empty = ~set_to_bit(universe, universe);
-	bitset	varmap[26] = { empty };
+	bitstring	empty = ~set_to_bit(universe, universe);
+	bitstring	varmap[26] = { empty };
 	for (size_t i=0; i<sets.size() && i<26; i++)
 		varmap[i] = vec_to_bit(universe, sets[i]);
 

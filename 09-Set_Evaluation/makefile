@@ -1,10 +1,10 @@
 HDRS = \
 	eval_set.hpp \
-	bitset.hpp \
+	bitstring.hpp \
 
 SRCS = \
 	eval_set.o \
-	bitset.o \
+	bitstring.o \
 
 TEST_SRCS = main.o \
 
