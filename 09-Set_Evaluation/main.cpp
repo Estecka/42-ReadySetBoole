@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 15:21:03 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/20 15:21:47 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/20 15:27:27 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ extern int	main(int argc, char** argv){
 	CheckSet(expr, allSets);
 	for (size_t x=0; x<allSets.size(); x++)
 	if (allSets[x].size()) {
-		std::cout << LOG_BOLD_CLEAR << (char)('A'+x) << ": " << allSets[x] << std::endl;
+		std::cout << LOG_BOLD_CYAN << (char)('A'+x) << ": " << allSets[x] << std::endl;
 	}
 
 	std::cout << LOG_BOLD_CLEAR << expr << LOG_CLEAR << std::endl;

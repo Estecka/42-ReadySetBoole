@@ -19,7 +19,7 @@ bitset	set_to_bit(const std::set<int>& universe, const std::set<int>& set){
 	bitset result;
 
 	std::set<int>::const_iterator elt = universe.begin();
-	for (int n=0; (n*sizeof(int))<universe.size(); n++){
+	for (int n=0; (n*8*sizeof(int))<universe.size(); n++){
 		result.push_back(0);
 		for (int i=0; (n*sizeof(int)+i)<universe.size(); i++, elt++) {
 			if (set.find(*elt) != set.end())
@@ -64,7 +64,7 @@ bitset	operator^(const bitset& a, const bitset& b){
 bitset	operator%(const bitset& a, const bitset& b){
 	bitset r = a;
 	for (size_t i=0; i<b.length(); i++)
-		r[i] = !(a[i] ^ b[i]);
+		r[i] = ~(a[i] ^ b[i]);
 	return r;
 }
 bitset	operator<=(const bitset& a, const bitset& b){
