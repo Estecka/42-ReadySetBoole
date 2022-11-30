@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:39:33 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/22 17:50:00 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/28 19:17:50 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ struct vec2{
 	ushort y;
 };
 
-float	map(ushort x, ushort y);
-vec2 	reverse_map(float n);
+double	map(ushort x, ushort y);
+vec2 	reverse_map(double n);
 
 #endif

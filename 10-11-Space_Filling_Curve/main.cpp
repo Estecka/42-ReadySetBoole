@@ -6,7 +6,7 @@
 /*   By: abaur <abaur@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 17:55:32 by abaur             #+#    #+#             */
-/*   Updated: 2022/11/22 18:46:34 by abaur            ###   ########.fr       */
+/*   Updated: 2022/11/30 02:09:33 by abaur            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@ static vec2	GetTuple(const char* str){
 }
 
 extern int	main(int argc, char** argv){
+	// std::cout 
+	// 	<< "float:  " << 8*sizeof(float) << "\n"
+	// 	<< "double: " << 8*sizeof(double) << '\n'
+	// 	<< std::endl;
+
 	for (int i=1; i<argc; i++){
 		vec2 arg = GetTuple(argv[i]);
-		float n = map(arg.x, arg.y);
+		double n = map(arg.x, arg.y);
 		vec2 r = reverse_map(n);
 
 		bool range = (0 <= n && n <= 1);
